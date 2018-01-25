@@ -1,6 +1,8 @@
 var config = require("../nightwatch.conf.BASIC.js");
 var _ = require("lodash");
 var async = require("async");
+var fs = require("fs");
+var path = require("path");
 
 module.exports = { // adapted from: https://git.io/vodU0
   "Wuxiaworld": function(browser) {
@@ -16,7 +18,6 @@ module.exports = { // adapted from: https://git.io/vodU0
 				let novel = {};
 			  this.elementIdAttribute(item.ELEMENT, "text", function(result) {
 					novel["name"] = result.value;
-					console.log("___Novel: " + novel["name"]);
 					this.elementIdAttribute(item.ELEMENT, "href", function(result) {
 						novel["link"] = result.value;
 						next(null, novel)
@@ -24,19 +25,18 @@ module.exports = { // adapted from: https://git.io/vodU0
 			  });
 
 			}, function done(err, results) {
-				results = results.slice(0, 1);
-				async.eachSeries(results.slice(0, 3), (_novel, next) => {
+				//results = results.slice(0, 1); // **************************************************************************************************
+				async.eachSeries(results, (_novel, next) => {
 					browser.url(_novel.link).elements("css selector", "div[itemprop='articleBody'] a", function (result) {
 						let chapterItems = result.value;
 						if (!chapterItems.length) {
 							return next();
 						}
-
-						async.map(chapterItems.slice(0, 3), (cItem, next) => {
+						//chapterItems = chapterItems.slice(0, 1) // **************************************************************************************************
+						async.map(chapterItems, (cItem, next) => {
 							let chapter = {};
 						  this.elementIdAttribute(cItem.ELEMENT, "text", function(result) {
 								chapter["name"] = result.value;
-								console.log("_Chapter: " + chapter["name"]);
 								this.elementIdAttribute(cItem.ELEMENT, "href", function(result) {
 									chapter["link"] = result.value;
 									next(null, chapter)
@@ -49,7 +49,8 @@ module.exports = { // adapted from: https://git.io/vodU0
 					}); // browser.url
 				}, function (err) {
 					getChaptersArticle(results, (err, data) => {
-						console.log(data)
+						fs.writeFileSync(__dirname + "/../../reports/data.json", JSON.stringify(data, null, 2), "utf8");
+						console.log("DONE!");
 					}); // getChaptersArticle
 				}); // async.eachSeries
 			});
@@ -58,11 +59,9 @@ module.exports = { // adapted from: https://git.io/vodU0
 
 
 	  function getChaptersArticle(novels, callback) {
-
 	  	async.eachSeries(novels, (novel, next) => {
 	  		async.eachSeries(novel.chapters, (chapter, next) => {
 	  			browser.url(chapter.link).elements("css selector", "div[itemprop='articleBody']", function (result) {
-	  				console.log(result);
 	  				this.elementIdAttribute(result.value[0].ELEMENT, "innerText", function(result) {
 							chapter["articleBody"] = result.value;
 	  					next();

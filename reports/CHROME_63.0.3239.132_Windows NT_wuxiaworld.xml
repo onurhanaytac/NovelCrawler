@@ -5,9 +5,9 @@
 
   <testsuite name="wuxiaworld"
     errors="0" failures="0" hostname="" id="" package="wuxiaworld" skipped="0"
-    tests="1" time="31.97" timestamp="Thu, 25 Jan 2018 11:35:34 GMT">
+    tests="1" time="1134" timestamp="Thu, 25 Jan 2018 13:59:32 GMT">
   
-    <testcase name="Wuxiaworld" classname="wuxiaworld" time="31.97" assertions="0">
+    <testcase name="Wuxiaworld" classname="wuxiaworld" time="1134" assertions="0">
     </testcase>
   
 
