@@ -29,7 +29,7 @@ module.exports = { // adapted from: https://git.io/vodU0
 				async.eachSeries(results, (_novel, next) => {
 					browser.url(_novel.link).elements("css selector", "div[itemprop='articleBody'] a", function (result) {
 						let chapterItems = result.value;
-						if (!chapterItems.length) {
+						if (!chapterItems || !chapterItems.length) {
 							return next();
 						}
 						//chapterItems = chapterItems.slice(0, 1) // **************************************************************************************************

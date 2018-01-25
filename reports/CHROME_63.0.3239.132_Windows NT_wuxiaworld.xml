@@ -1,16 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites errors="0"
+<testsuites errors="1"
             failures="0"
             tests="1">
 
   <testsuite name="wuxiaworld"
-    errors="0" failures="0" hostname="" id="" package="wuxiaworld" skipped="0"
-    tests="1" time="1134" timestamp="Thu, 25 Jan 2018 13:59:32 GMT">
+    errors="1" failures="0" hostname="" id="" package="wuxiaworld" skipped="0"
+    tests="1" time="173.4" timestamp="Thu, 25 Jan 2018 14:47:19 GMT">
   
-    <testcase name="Wuxiaworld" classname="wuxiaworld" time="1134" assertions="0">
+    <testcase name="Wuxiaworld" classname="wuxiaworld" time="173.4" assertions="0">
     </testcase>
   
 
+  
+    <system-err>
+        Error while running [Wuxiaworld / Wuxiaworld]:
+
+  TypeError: Cannot read property &#39;length&#39; of null
+    at Object.&lt;anonymous&gt; (C:\Users\Oska\Desktop\NovelCrawler\nightwatch\crawlers\wuxiaworld.js:32:24)
+    at Object.&lt;anonymous&gt; (C:\Users\Oska\Desktop\NovelCrawler\node_modules\nightwatch\lib\api\protocol.js:1303:18)
+    at HttpRequest.&lt;anonymous&gt; (C:\Users\Oska\Desktop\NovelCrawler\node_modules\nightwatch\lib\index.js:366:18)
+    at emitTwo (events.js:125:13)
+    at HttpRequest.emit (events.js:213:7)
+    at HttpRequest.&lt;anonymous&gt; (C:\Users\Oska\Desktop\NovelCrawler\node_modules\nightwatch\lib\index.js:393:15)
+    at emitTwo (events.js:125:13)
+    at HttpRequest.emit (events.js:213:7)
+    at ClientRequest.&lt;anonymous&gt; (C:\Users\Oska\Desktop\NovelCrawler\node_modules\nightwatch\lib\http\request.js:178:12)
+    at emitOne (events.js:115:13)
+    </system-err>
   
 
   
