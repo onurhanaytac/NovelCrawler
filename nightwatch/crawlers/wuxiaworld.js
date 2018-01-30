@@ -20,7 +20,7 @@ module.exports = { // adapted from: https://git.io/vodU0
 					novel["name"] = result.value;
 					this.elementIdAttribute(item.ELEMENT, "href", function(result) {
 						novel["link"] = result.value;
-						next(null, novel)
+						next(null, novel);
 				  });
 			  });
 
@@ -62,6 +62,9 @@ module.exports = { // adapted from: https://git.io/vodU0
 	  	async.eachSeries(novels, (novel, next) => {
 	  		async.eachSeries(novel.chapters, (chapter, next) => {
 	  			browser.url(chapter.link).elements("css selector", "div[itemprop='articleBody']", function (result) {
+	  				if (!result || !result.value || !result.value[0] || !result.value[0].ELEMENT) {
+	  					return next();
+	  				}
 	  				this.elementIdAttribute(result.value[0].ELEMENT, "innerText", function(result) {
 							chapter["articleBody"] = result.value;
 	  					next();
